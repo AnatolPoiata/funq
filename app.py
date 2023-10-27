@@ -74,10 +74,10 @@ def trip_planner_section():
 
 				header = {'Content-Type': 'application/json', 'Accept': 'application/json'}
 
-				data = requests.post(itinerary_url+"/")
+				data = requests.post(itinerary_url)
 				print('POST data=', data)
 
-				data = requests.post(itinerary_url, user_input, headers= header)
+				data = requests.post(itinerary_url+"new_itinerary", user_input, headers= header)
 				print('data content=',data.content)
 
 				return data.content
@@ -301,7 +301,7 @@ def flight_submit():
 
 	user_input = json.dumps(request_data)
 
-	response = requests.post(server_url+":"+flight_port+"/flight_search", json=user_input)
+	response = requests.post(flight_url+"/flight_search", json=user_input)
 
 #	response = requests.post("http://localhost:2222/flight_search", json=user_input)
 
