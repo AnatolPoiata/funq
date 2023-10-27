@@ -71,13 +71,9 @@ def trip_planner_section():
 						'add_info': add_info.strip(),
 						}
 				user_input = json.dumps(user_input)
-				print(server_url+":"+itinerary_port+"/new_trip")
+				print('url=',server_url+":"+itinerary_port+"/new_trip")
 				header = {'Content-Type': 'application/json', 'Accept': 'application/json'}
 				url = server_url+":"+itinerary_port+"/new_trip"
-
-				data = requests.get(server_url+":"+itinerary_port+"/")
-				print('GET data=', data)
-
 
 				data = requests.post(server_url+":"+itinerary_port+"/")
 				print('POST data=', data)
