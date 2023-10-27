@@ -15,8 +15,8 @@ airports_city = pd.read_csv('./data/IATA_city.csv')
 airports_city.dropna(subset=['Code'], inplace=True)
 airports_city['city_long'] = airports_city['City'] + ', ' +airports_city['Country'] + ', '+airports_city['Code']
 
-server_url="http://89.32.236.109"
-itinerary_port = "5000"
+#server_url="http://89.32.236.109"
+itinerary_url = "https://app-itinerary-d7fa75cbe1b1.herokuapp.com/"
 flight_port = "5001"
 
 
@@ -75,10 +75,10 @@ def trip_planner_section():
 				header = {'Content-Type': 'application/json', 'Accept': 'application/json'}
 				url = server_url+":"+itinerary_port+"/new_trip"
 
-				data = requests.post(server_url+":"+itinerary_port+"/")
+				data = requests.post(itinerary_url+"/")
 				print('POST data=', data)
 
-				data = requests.post(url, user_input, headers= header)
+				data = requests.post(itinerary_url, user_input, headers= header)
 				print('data content=',data.content)
 
 				return data.content
