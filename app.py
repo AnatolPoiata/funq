@@ -76,7 +76,7 @@ def trip_planner_section():
 				header = {'Content-Type': 'application/json', 'Accept': 'application/json'}
 
 				print(user_input)
-				data = requests.post(itinerary_url+"new_trip", data=user_input, headers= header)
+				data = requests.post(itinerary_url+"new_trip", data=user_input, headers= header, timeout=300)
 				print('data content=',data.content)
 
 				return data.content
