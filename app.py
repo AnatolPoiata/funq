@@ -300,7 +300,7 @@ def flight_submit():
 
 	user_input = json.dumps(request_data)
 
-	response = requests.post(flight_url+"/flight_search", data=user_input)
+	response = requests.post(flight_url+"flight_search", data=user_input)
 
 #	response = requests.post("http://localhost:2222/flight_search", json=user_input)
 
