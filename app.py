@@ -16,10 +16,11 @@ airports_city.dropna(subset=['Code'], inplace=True)
 airports_city['city_long'] = airports_city['City'] + ', ' +airports_city['Country'] + ', '+airports_city['Code']
 
 #server_url="http://89.32.236.109"
-itinerary_url="http://89.32.236.109:5000/"
+#itinerary_url="http://89.32.236.109:5000/"
+
 flight_url="http://89.32.236.109:5001/"
 
-#itinerary_url = "https://app-itinerary-d7fa75cbe1b1.herokuapp.com/"
+itinerary_url = "https://app-itinerary-d7fa75cbe1b1.herokuapp.com/"
 #flight_port = "5001"
 
 
