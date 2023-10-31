@@ -18,8 +18,8 @@ airports_city['city_long'] = airports_city['City'] + ', ' +airports_city['Countr
 #server_url="http://89.32.236.109"
 #itinerary_url="http://89.32.236.109:5000/"
 
-flight_url="https://funqflight-bd3232d47733.herokuapp.com/"
-itinerary_url = https://funqitinerary-3ed598128afc.herokuapp.com/"
+flight_url="https://app-flight-3f9c6f645f67.herokuapp.com/"
+itinerary_url = "https://app-itinerary-72ec0834c265.herokuapp.com/"
 
 now_date = datetime.now()
 
