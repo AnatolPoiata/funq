@@ -81,7 +81,7 @@ def trip_planner_section():
 
 #				print('data content=',data.content)
 
-				return data.content
+				return data  #.content
 			else:
 				return 'NULL'
 
