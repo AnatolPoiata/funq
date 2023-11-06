@@ -75,11 +75,11 @@ def trip_planner_section():
 
 				header = {'Content-Type': 'application/json', 'Accept': 'application/json'}
 
-				print(user_input)
+#				print(user_input)
 #				data = requests.post(itinerary_url+"new_trip", data=user_input, headers= header)
 				data = requests.post(itinerary_url+"itinerary_intention", data=user_input, headers= header)
 
-				print('data content=',data.content)
+#				print('data content=',data.content)
 
 				return data.content
 			else:
@@ -472,7 +472,7 @@ def main():
 	with tab1:
 		output = trip_planner_section()
 		if output:
-#			st.write(output.content)
+			st.write(output.content)
 #			itinerary = ta.itinerary_days(output)
 			try:
 				show_itinerary(output)
