@@ -300,7 +300,7 @@ def flight_submit():
 	response = requests.post(flight_url+"flight_search", data=user_input, headers= header)
 
 	resp = response.content
-	st.write(json.loads(resp)
+	st.write(json.loads(resp))
 
 	st.session_state.json_data = result
 
