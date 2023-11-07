@@ -243,7 +243,6 @@ def flight_submit():
 	return_date = st.session_state.departure_date
 	return_date = return_date.strftime("%Y-%m-%d")
 
-
 	pax = str(st.session_state.passengers)
 	cabin = st.session_state.cabin.upper()
 #	cabin = cabin.upper()
@@ -313,7 +312,7 @@ def flight_submit():
 #	response = json.loads(data)['data']
 	response = json.loads(data)
 
-#	st.write(response)
+	st.write(response)
 
 	result = response
 	st.session_state.json_data = result
