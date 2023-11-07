@@ -302,7 +302,7 @@ def flight_submit():
 	resp = response.content
 	st.write(json.loads(resp))
 
-	st.session_state.json_data = result
+	st.session_state.json_data = response
 
 	return response
 	
