@@ -469,7 +469,11 @@ def main():
 	with tab1:
 		output = trip_planner_section()
 		if output:
-			st.write(output)
+			out_res = output.content
+			st.write(out_res)
+
+			st.write(json.loads(out_res))
+			
 #			st.write(json.loads(output))
 #			itinerary = ta.itinerary_days(output)
 			try:
