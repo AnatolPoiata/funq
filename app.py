@@ -303,6 +303,8 @@ def flight_submit():
 
 	response = requests.post(flight_url+"flight_search", data=user_input, headers= header)
 
+	return response
+	
 #	response = requests.post("http://localhost:2222/flight_search", json=user_input)
 
 	data = response.content
@@ -356,7 +358,9 @@ def flight_search_section():
 		st.form_submit_button('Submit', on_click=flight_submit)
 
 	if isinstance(str(st.session_state.json_data), str):
-		st.write(str(st.session_state.json_data))
+		return st.session_state.json_data
+	else:
+		return None
 
 #	st.text_area('Additional Information', height=200, value='I want to visit as many places as possible! (respect time)', key='additional_information')
 
@@ -491,10 +495,10 @@ def main():
 	with tab2:
 		output = flight_search_section()
 		if output:
-#			st.write(output.content)
-			itinerary = ta.itinerary_days(output)
+			st.write(output.content)
+#			itinerary = ta.itinerary_days(output)
 #			return output
-			show(itinerary)
+#			show(itinerary)
 		else:
 			st.write('')
 
