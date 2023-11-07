@@ -470,7 +470,7 @@ def main():
 		output = trip_planner_section()
 		if output:
 			out_res = output.content
-			st.write(out_res)
+#			st.write(out_res)
 
 			st.write(json.loads(out_res))
 			
