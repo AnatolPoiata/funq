@@ -316,7 +316,7 @@ def flight_submit():
 #	st.write(response)
 
 	result = response
-	st.session_state.json_data = json.loads(result)
+	st.session_state.json_data = result
 
 #	return response
 
@@ -469,8 +469,8 @@ def main():
 	with tab1:
 		output = trip_planner_section()
 		if output:
-#			st.write(output.content)
-			st.write(json.loads(output))
+			st.write(output)
+#			st.write(json.loads(output))
 #			itinerary = ta.itinerary_days(output)
 			try:
 				show_itinerary(output)
