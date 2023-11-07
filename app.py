@@ -495,7 +495,7 @@ def main():
 	with tab2:
 		output = flight_search_section()
 		if output:
-			st.write(output.content)
+			st.write(output)
 #			itinerary = ta.itinerary_days(output)
 #			return output
 #			show(itinerary)
