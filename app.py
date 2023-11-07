@@ -4,12 +4,9 @@ from streamlit_extras.app_logo import add_logo
 from datetime import datetime, date, timedelta 
 import pandas as pd
 
-
 import requests
 import json
 import googlemaps
-
-
 
 airports_city = pd.read_csv('./data/IATA_city.csv')
 airports_city.dropna(subset=['Code'], inplace=True)
@@ -31,7 +28,6 @@ destinations = df['Full']
 df = pd.read_csv('./data/worldcities.csv')
 worldcities = df[['city_ascii',	'lat', 'lng', 'country']].copy()
 worldcities['city_long'] = worldcities['city_ascii'] + ', ' + worldcities['country']
-
 
 
 st.set_page_config(layout="wide")
@@ -302,6 +298,11 @@ def flight_submit():
 	user_input = json.dumps(request_data)
 
 	response = requests.post(flight_url+"flight_search", data=user_input, headers= header)
+
+	resp = response.content
+	st.write(json.loads(resp)
+
+	st.session_state.json_data = result
 
 	return response
 	
