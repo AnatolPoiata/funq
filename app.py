@@ -232,12 +232,9 @@ def get_response(system_message, user_input):
 def flight_submit():	
 
 	origin = st.session_state.origin
-	print('origin:', origin)
 	origin = origin.split(', ')[-1]
 
 	destination = st.session_state.destination
-	print('destination:', destination)
-
 	destination = destination.split(', ')[-1]
 
 	departure_date = st.session_state.departure_date
@@ -301,7 +298,7 @@ def flight_submit():
 
 	header = {'Content-Type': 'application/json', 'Accept': 'application/json'}
 	
-	print(request_data)
+#	print(request_data)
 
 	user_input = json.dumps(request_data)
 
@@ -311,7 +308,7 @@ def flight_submit():
 
 	data = response.content
 
-	print('response:', data)
+#	print('response:', data)
 
 #	response = json.loads(data)['data']
 	response = json.loads(data)
@@ -319,7 +316,7 @@ def flight_submit():
 #	st.write(response)
 
 	result = response
-	st.session_state.json_data = result
+	st.session_state.json_data = json.loads(result)
 
 #	return response
 
@@ -472,7 +469,7 @@ def main():
 	with tab1:
 		output = trip_planner_section()
 		if output:
-			st.write(output.content)
+			st.write(json.loads(output.content))
 #			itinerary = ta.itinerary_days(output)
 			try:
 				show_itinerary(output)
