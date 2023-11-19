@@ -107,14 +107,11 @@ def trip_planner_section():
 				candidates = requests.post(itinerary_url+"itinerary_candidates", json=user_input, headers= header)
 				
 				json_object = json.loads(candidates.content)
+				json_object  = str(json_object).encode('utf-8)
 				st.write(json_object)
 
 				st.write(json.loads(candidates))
-
-				candidates = str(candidates.content)
-				st.write(json.loads(candidates))
-
-				new_input = json.dumps(json.loads(candidates))
+				new_input = json.dumps(json.loads(json_object))
 
 				route = requests.post(itinerary_url+"new_trip", json=new_input, headers= header)
 
