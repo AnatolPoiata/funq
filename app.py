@@ -22,24 +22,41 @@ now_date = datetime.now()
 
 #place_details = ['business_status',   'formatted_address', 'name', 'opening_hours', 'photos', 'place_id', 'price_level', 'rating',  'types', 'user_ratings_total']
 
-df = pd.read_csv('./data/destinations_list.csv')
+df = pd.read_excel('./data/POIs.xlsx')
+full_name = []
+for i, row in df.iterrows():
+	dest = ''
+	if (len(str(row['city'])) > 0):
+		dest = row['city']
+	if ((len(str(row['region'])) > 0)&(row['city'] != row['region'])):
+		dest = dest + ','+row['region']
+	if ((len(str(row['country'])) > 0)&(row['city'] != row['country']) & (row['region'] != row['country'])):
+		dest = dest + ','+row['country']
+	full_name.append(dest)
+
+df['Full'] = full_name
+df.drop_duplicates(subset='Full', inplace=True)
+df.sort_values(by='Full', ascending=True, inplace=True)
 destinations = df['Full']
 
-df = pd.read_csv('./data/worldcities.csv')
-worldcities = df[['city_ascii',	'lat', 'lng', 'country']].copy()
+
+df1 = pd.read_csv('./data/worldcities.csv')
+
+worldcities = df1[['city_ascii',	'lat', 'lng', 'country']].copy()
+
 worldcities['city_long'] = worldcities['city_ascii'] + ', ' + worldcities['country']
 
 
 st.set_page_config(layout="wide")
 
+
+
+
 def trip_planner_section():
 
 	day = 3
-
 	st.empty()
-
 	col1, col2, col3, col4 = st.columns([0.1, 0.1 ,0.7, 0.1], gap="small")
-
 
 	with col1:
 		st.image("./images/logo.png")
@@ -50,34 +67,52 @@ def trip_planner_section():
 		destination = st.selectbox("Enter the place you want to visit", destinations, index=None)
 		days = st.slider('Number of Days ', 1, 7, day) 
 #		prefered_date = st.date_input('Prefered date to travel', value=None)
-		options = st.multiselect(
-			'What activities are you interested in ?',
-			['City walks', 'Local food', 'Wine', 'Shopping', 'Art&Culture', 'Wellness', 'Outdoors', 'History', 'Popular attractions', 'Hidden gems', 'Museums', 'Nightlife' ],
-			max_selections=5, help='Select up to 5')
+#		options = st.multiselect(
+#			'What activities are you interested in ?',
+#			['City walks', 'Local food', 'Wine', 'Shopping', 'Art&Culture', 'Wellness', 'Outdoors', 'History', 'Popular attractions', 'Hidden gems', 'Museums', 'Nightlife' ],
+#			max_selections=5, help='Select up to 5')
 
-		add_info = st.text_area('Additional Information', height=200, value='I want to visit as many places as possible! (respect time)')
+		preferred_transport = st.multiselect(
+			'Preferred transport',
+			['Walking as much as I can', 'Public transport', 'Rental car', 'Taxi'],
+			max_selections=1, help='Select one')
+
+		add_info = st.text_area('Additional Information', height=200, value='I want to visit as many places as possible')
 
 		if st.button("Send", key="button1"): 
 			if destination:
 #				user_input_prompt = 'Plan a trip to ' + user_input + ' for '+ str(days)+ ' days, strating from '+ prefered_date.strftime('%B %d, %Y')
+
+				city = df[df['Full']==destination]['city'].to_list()[0]
+				region = df[df['Full']==destination]['region'].to_list()[0]
+				country = df[df['Full']==destination]['country'].to_list()[0]
+
 				user_input =  {
-						'destination': destination,
-						'days': days,
+						'destination': {
+							"city": city,
+							"region": region,
+							"country": country,
+							'days': days,
 #						'prefered_date': prefered_date.strftime('%B %d, %Y'),
-						'options': options,
+#						'options': options,
+							'preferred_transport': preferred_transport
+							},
 						'add_info': add_info.strip(),
 						}
+
 				user_input = json.dumps(user_input)
 
 				header = {'Content-Type': 'application/json', 'Accept': 'application/json'}
 
-#				print(user_input)
-#				data = requests.post(itinerary_url+"new_trip", data=user_input, headers= header)
-				data = requests.post(itinerary_url+"itinerary_intention", data=user_input, headers= header)
+				candidates = requests.post(itinerary_url+"itinerary_candidates", json=user_input, headers= header)
 
-#				print('data content=',data.content)
+				st.write(json.loads(candidates.content))
 
-				return data  #.content
+				new_input = json.dumps(json.loads(candidates.content))
+
+				route = requests.post(itinerary_url+"new_trip", json=new_input, headers= header)
+
+				return route
 			else:
 				return 'NULL'
 
