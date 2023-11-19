@@ -109,7 +109,7 @@ def trip_planner_section():
 				json_object = json.loads(candidates.content)
 				st.write(json_object)
 
-				json_object  = str(candidates).encode('utf-8').replace("'\': nan,", "'\': 0")
+				json_object  = str(candidates.content).replace("'\': nan,", "'\': 0")
 				
 				st.write(json_object)
 
