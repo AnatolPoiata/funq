@@ -105,6 +105,11 @@ def trip_planner_section():
 				header = {'Content-Type': 'application/json', 'Accept': 'application/json'}
 
 				candidates = requests.post(itinerary_url+"itinerary_candidates", json=user_input, headers= header)
+				
+				json_object = json.loads(candidates.decode("UTF-8"))
+				st.write(json_object)
+
+				st.write(json.loads(candidates))
 
 				candidates = str(candidates.content)
 				st.write(json.loads(candidates))
