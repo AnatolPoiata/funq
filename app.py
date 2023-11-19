@@ -106,7 +106,7 @@ def trip_planner_section():
 
 				candidates = requests.post(itinerary_url+"itinerary_candidates", json=user_input, headers= header)
 
-				candidates = str(candidates.content).decode('utf-8')
+				candidates = str(candidates.content)
 				print(candidates)
 
 				st.write(json.loads(candidates))
